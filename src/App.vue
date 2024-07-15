@@ -1,11 +1,34 @@
 <script >
+import AddProduct from './components/addProduct.vue'
 export default{
   name: 'App',
+  components:{
+    AddProduct
+  },
   data() {
     return {
-      shoppingList: ['Apple', 'Bread', 'Egg']
+      shoppingList:  this.fetchData(),
+       
     };
-  }
+  },
+    methods: {
+    fetchData() {
+      fetch('https://shoppinglist.cosmos.cboxlab.com/api/v1/shopping-list', {
+        method: "GET",
+        
+      })
+        .then((response) => {
+          response.json().then((data) => {
+           
+            this.shoppingList=data;
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+  
 }
 </script>
 
@@ -17,9 +40,10 @@ export default{
   <main>
   <div class="row">
     <ul>
-      <li v-for="item in shoppingList" :key="index">{{ item }}</li>
+      <li v-for="item in shoppingList.items" :key="index">{{ item.name }}</li>
     </ul>
   </div>
+   <AddProduct></AddProduct>     
   </main>
 </template>
 
