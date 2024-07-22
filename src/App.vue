@@ -1,13 +1,22 @@
 <script >
 import AddProduct from './components/addProduct.vue'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; 
+
+library.add(faTrash);
+
+
 export default{
   name: 'App',
   components:{
-    AddProduct
+    AddProduct,
+    FontAwesomeIcon       
   },
   data() {
     return {
       shoppingList:  this.fetchData(),
+      editShow:false
        
     };
   },
@@ -27,6 +36,39 @@ export default{
           console.error(err);
         });
     },
+   async deleteData(id){
+      try {
+        const response = await fetch(`https://shoppinglist.cosmos.cboxlab.com/api/v1/shopping-list/${id}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Product with ID ${id} deleted.`);
+      this.   fetchData()
+      } catch (error) {
+        console.error('There was an error deleting the product:', error);
+      }
+
+    },
+    async editData(id,productName){
+      try {
+        const response = await fetch(`https://shoppinglist.cosmos.cboxlab.com/api/v1/shopping-list/${id}`, {
+          method: 'POST',
+          body: JSON.stringify({
+                name: productName
+          })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Product with ID ${id} edited       .`);
+      this.   fetchData()
+      } catch (error) {
+        console.error('There was an error deleting the product:', error);
+      }
+
+    }
   },
   
 }
@@ -40,10 +82,20 @@ export default{
   <main>
   <div class="row">
     <ul>
-      <li v-for="item in shoppingList.items" :key="index">{{ item.name }}</li>
+      <li v-for="item in shoppingList.items" :key="index">
+        {{ item.name }}
+           
+        <button @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
+        <button @click="editShow=true">Edit Data</button>
+        <form v-if="editShow"> 
+                    <label class="">Product Name:</label>
+        <input type="text" v-model="product">  
+        <button @click="editData(item.id,product)">Save</button>       
+      </form>
+      </li>
     </ul>
   </div>
-   <AddProduct></AddProduct>     
+   <AddProduct></AddProduct>    
   </main>
 </template>
 
