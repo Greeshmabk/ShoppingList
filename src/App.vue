@@ -1,17 +1,17 @@
 <script >
 import AddProduct from './components/addProduct.vue'
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash , faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; 
-
-library.add(faTrash);
+import './assets/tailwind.css';
+library.add(faTrash , faEdit);
 
 
 export default{
   name: 'App',
   components:{
     AddProduct,
-    FontAwesomeIcon       
+    FontAwesomeIcon,       
   },
   data() {
     return {
@@ -76,7 +76,7 @@ export default{
 
 <template>
   <header>
-    <h1><b>Shopping List</b></h1>
+    <h1 class="text-3xl font-bold underline"><b>Shopping List</b></h1>
   </header>
 
   <main>
@@ -86,7 +86,7 @@ export default{
         {{ item.name }}
            
         <button @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
-        <button @click="editShow=true">Edit Data</button>
+        <button @click="editShow=true"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>
         <form v-if="editShow"> 
                     <label class="">Product Name:</label>
         <input type="text" v-model="product">  
@@ -101,13 +101,11 @@ export default{
 
 <style scoped>
 header {
-  line-height: 1.5;
+  line-height: 2.5;
+  color: red;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+
 
 @media (min-width: 1024px) {
   header {
