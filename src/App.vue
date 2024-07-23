@@ -16,8 +16,8 @@ export default{
   data() {
     return {
       shoppingList:  this.fetchData(),
-      editShow:false
-       
+      editShow:false, 
+      editItem:''
     };
   },
     methods: {
@@ -45,7 +45,7 @@ export default{
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         console.log(`Product with ID ${id} deleted.`);
-      this.   fetchData()
+      this.fetchData()
       } catch (error) {
         console.error('There was an error deleting the product:', error);
       }
@@ -86,14 +86,15 @@ export default{
         {{ item.name }}
            
         <button @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
-        <button @click="editShow=true"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>
-        <form v-if="editShow"> 
-                    <label class="">Product Name:</label>
-        <input type="text" v-model="product">  
-        <button @click="editData(item.id,product)">Save</button>       
-      </form>
+        <button @click="editShow=true , editItem=item.id"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>
       </li>
     </ul>
+    <form v-if="editShow"> 
+                    <label class="">Product Name:</label>
+        <input type="text" v-model="product">  
+        <button @click="editData(editItem,product)">Save</button>       
+      </form>
+      
   </div>
    <AddProduct></AddProduct>    
   </main>
