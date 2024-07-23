@@ -1,14 +1,23 @@
 <script >
 import AddProduct from './components/addProduct.vue'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTrash , faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; 
+import './assets/tailwind.css';
+library.add(faTrash , faEdit);
+
+
 export default{
   name: 'App',
   components:{
-    AddProduct
+    AddProduct,
+    FontAwesomeIcon,       
   },
   data() {
     return {
       shoppingList:  this.fetchData(),
-       
+      editShow:false, 
+      editItem:''
     };
   },
     methods: {
@@ -27,6 +36,39 @@ export default{
           console.error(err);
         });
     },
+   async deleteData(id){
+      try {
+        const response = await fetch(`https://shoppinglist.cosmos.cboxlab.com/api/v1/shopping-list/${id}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Product with ID ${id} deleted.`);
+      this.fetchData()
+      } catch (error) {
+        console.error('There was an error deleting the product:', error);
+      }
+
+    },
+    async editData(id,productName){
+      try {
+        const response = await fetch(`https://shoppinglist.cosmos.cboxlab.com/api/v1/shopping-list/${id}`, {
+          method: 'POST',
+          body: JSON.stringify({
+                name: productName
+          })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(`Product with ID ${id} edited       .`);
+      this.   fetchData()
+      } catch (error) {
+        console.error('There was an error deleting the product:', error);
+      }
+
+    }
   },
   
 }
@@ -34,28 +76,37 @@ export default{
 
 <template>
   <header>
-    <h1><b>Shopping List</b></h1>
+    <h1 class="text-3xl font-bold underline"><b>Shopping List</b></h1>
   </header>
 
   <main>
   <div class="row">
     <ul>
-      <li v-for="item in shoppingList.items" :key="index">{{ item.name }}</li>
+      <li v-for="item in shoppingList.items" :key="index">
+        {{ item.name }}
+           
+        <button @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
+        <button @click="editShow=true , editItem=item.id"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>
+      </li>
     </ul>
+    <form v-if="editShow"> 
+                    <label class="">Product Name:</label>
+        <input type="text" v-model="product">  
+        <button @click="editData(editItem,product)">Save</button>       
+      </form>
+      
   </div>
-   <AddProduct></AddProduct>     
+   <AddProduct></AddProduct>    
   </main>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
+  line-height: 2.5;
+  color: red;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+
 
 @media (min-width: 1024px) {
   header {
