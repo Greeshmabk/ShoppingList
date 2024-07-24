@@ -65,7 +65,7 @@ export default{
         console.log(`Product with ID ${id} edited       .`);
       this.   fetchData()
       } catch (error) {
-        console.error('There was an error deleting the product:', error);
+        console.error('There was an error editing the product:', error);
       }
 
     }
@@ -75,11 +75,12 @@ export default{
 </script>
 
 <template>
-  <header>
+  <div>
+  <div class="headerPart">
     <h1 class="text-3xl font-bold underline"><b>Shopping List</b></h1>
-  </header>
+  </div>
 
-  <main>
+  <div>
   <div class="row">
     <ul>
       <li v-for="item in shoppingList.items" :key="index">
@@ -91,22 +92,26 @@ export default{
     </ul>
     <form v-if="editShow"> 
                     <label class="">Product Name:</label>
-        <input type="text" v-model="product">  
+        <input class="editProduct" type="text" v-model="product">  
         <button @click="editData(editItem,product)">Save</button>       
       </form>
       
   </div>
    <AddProduct></AddProduct>    
-  </main>
+</div>
+  </div>
 </template>
 
 <style scoped>
-header {
+
+.headerPart {
   line-height: 2.5;
   color: red;
 }
 
-
+.editProduct{
+  color: black;
+}
 
 @media (min-width: 1024px) {
   header {
