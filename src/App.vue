@@ -76,18 +76,19 @@ export default{
 
 <template>
   <div>
-  <div class="headerPart">
-    <h1 class="text-3xl font-bold underline"><b>Shopping List</b></h1>
+  <div class=" pb-8 flex">
+    <h1 class="text-3xl font-bold underline headerPart"><b>Shopping List</b></h1>
+    <AddProduct></AddProduct>  
   </div>
 
   <div>
   <div class="row">
     <ul>
-      <li v-for="item in shoppingList.items" :key="index">
+      <li class="pb-2 " v-for="item in shoppingList.items" :key="index">
         {{ item.name }}
-           
-        <button @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
-        <button @click="editShow=true , editItem=item.id"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>
+        <button class="pl-8 pr-8" @click="editShow=true , editItem=item.id"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>  
+        <button class="" @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
+        
       </li>
     </ul>
     <form v-if="editShow"> 
@@ -96,8 +97,7 @@ export default{
         <button @click="editData(editItem,product)">Save</button>       
       </form>
       
-  </div>
-   <AddProduct></AddProduct>    
+  </div>  
 </div>
   </div>
 </template>
