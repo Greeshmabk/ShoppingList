@@ -29,7 +29,9 @@ methods:{
 </script>
 <template>
     <div>
-        <button @click="show=true">Add Product</button>
+        <div class="button-container py-4">
+        <button class="dark:bg-slate-900 dark:text-white "    @click="show=true">Add Product</button>
+        </div>
         <div v-if="show" class="modal-overlay" @click.self="close">
     <div class="modal-content">
                 <form>
@@ -43,6 +45,11 @@ methods:{
     </div>
 </template>
 <style scoped>
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -53,4 +60,5 @@ label{
     color: red;
     font-size: 20px;
 }
+
 </style>

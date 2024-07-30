@@ -74,7 +74,7 @@ export default{
 </script>
 
 <template>
-  <div class="shoppingList ">
+  <div class="shoppingList container mx-auto px-8 py-8">
   <div class=" pb-8 flex">
     <h1 class="text-3xl font-bold underline headerPart"><b>Shopping List</b></h1>
      
