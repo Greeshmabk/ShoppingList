@@ -21,14 +21,13 @@ export default{
     };
   },
     methods: {
-    fetchData() {
+    fetchData() {    
       fetch('https://shoppinglist.cosmos.cboxlab.com/api/v1/shopping-list', {
         method: "GET",
         
       })
-        .then((response) => {
+        .then((response) => {         
           response.json().then((data) => {
-           
             this.shoppingList=data;
           });
         })
@@ -65,7 +64,7 @@ export default{
         console.log(`Product with ID ${id} edited       .`);
       this.   fetchData()
       } catch (error) {
-        console.error('There was an error deleting the product:', error);
+        console.error('There was an error editing the product:', error);
       }
 
     }
@@ -75,38 +74,57 @@ export default{
 </script>
 
 <template>
-  <header>
-    <h1 class="text-3xl font-bold underline"><b>Shopping List</b></h1>
-  </header>
+  <div class="shoppingList container mx-auto px-8 py-8">
+  <div class=" pb-8 flex">
+    <h1 class="text-3xl font-bold underline headerPart"><b>Shopping List</b></h1>
+     
+  </div>
 
-  <main>
+  <div>
+    <AddProduct></AddProduct> 
   <div class="row">
-    <ul>
-      <li v-for="item in shoppingList.items" :key="index">
-        {{ item.name }}
-           
-        <button @click="deleteData(item.id)"><FontAwesomeIcon :icon="['fas', 'trash']" class="mr-2" /></button>
-        <button @click="editShow=true , editItem=item.id"><FontAwesomeIcon :icon="['fas', 'edit']" /></button>
-      </li>
-    </ul>
+    <table class="min-w-full bg-white">
+     
+      <tbody>
+        <tr v-for="item in shoppingList.items" :key="index">
+          <td class="border px-4 py-2">{{ item.name }}</td>
+          
+            <button @click="editShow=true , editItem=item.id" class="px-2 py-1 bg-yellow-500 text-white rounded mr-2">
+              <font-awesome-icon :icon="['fas', 'edit']" />
+            </button>
+            <button @click="deleteData(item.id)" class="px-2 py-1 bg-red-600 text-white rounded">
+              <font-awesome-icon :icon="['fas', 'trash']" />
+            
+            </button>
+          
+        </tr>
+      </tbody>
+    </table>
+   
     <form v-if="editShow"> 
                     <label class="">Product Name:</label>
-        <input type="text" v-model="product">  
+        <input class="editProduct" type="text" v-model="product">  
         <button @click="editData(editItem,product)">Save</button>       
       </form>
       
+  </div>  
+</div>
   </div>
-   <AddProduct></AddProduct>    
-  </main>
 </template>
 
 <style scoped>
-header {
+.shoppingList{
+  background-color: white;
+  color: black;
+}
+.headerPart {
   line-height: 2.5;
   color: red;
 }
 
-
+.editProduct{
+  color: black;
+}
 
 @media (min-width: 1024px) {
   header {
