@@ -1,5 +1,5 @@
 <script>
-import AddProduct from './addProduct.vue'
+import AddInventory from './addInventory.vue'
 import '../assets/tailwind.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrash , faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,7 @@ library.add(faTrash , faEdit);
   export default{
     name: 'productList',
     components:{
-      AddProduct,
+      AddInventory,
       FontAwesomeIcon
     },
     data(){
@@ -59,7 +59,7 @@ library.add(faTrash , faEdit);
       <h1 class="text-3xl font-bold underline mx-auto headerPart"><b>Product List</b></h1>
     </div>   
     <div>
-      <AddProduct></AddProduct> 
+      <AddInventory></AddInventory> 
       <div class="row">
         <table>
           <thead>
