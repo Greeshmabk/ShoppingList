@@ -3,7 +3,7 @@ import AddProduct from './addProduct.vue'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrash , faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; 
-import './assets/tailwind.css';
+import '../assets/tailwind.css';
 library.add(faTrash , faEdit);
 
 
@@ -11,8 +11,7 @@ export default{
   name: 'App',
   components:{
     AddProduct,
-    FontAwesomeIcon,
-    ProductList       
+    FontAwesomeIcon,     
   },
   data() {
     return {
@@ -29,7 +28,7 @@ export default{
       })
         .then((response) => {         
           response.json().then((data) => {
-            this.shoppingList=data;
+            this.shoppingList=data.items;
           });
         })
         .catch((err) => {
@@ -75,12 +74,17 @@ export default{
 </script>
 <template>
     <div>
+      <div class=" pb-8 flex">
+    <h1 class="text-3xl font-bold underline mx-auto headerPart"><b>Shopping List</b></h1>
+     
+  </div>
+
     <AddProduct></AddProduct> 
   <div class="row">
-    <table class="min-w-full bg-white">
+    <table class=" bg-white">
      
       <tbody>
-        <tr v-for="item in shoppingList.items" :key="index">
+        <tr v-for="item in shoppingList" :key="index">
           <td class="border px-4 py-2 mx-auto">{{ item.name }}</td>
        
           <button @click="editShow=true , editItem=item.id" class="px-2 py-1 bg-yellow-500 text-white rounded mr-2">

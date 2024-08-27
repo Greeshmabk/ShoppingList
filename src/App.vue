@@ -1,18 +1,14 @@
 <script >
 import ProductList from './components/productList.vue'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTrash , faEdit } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; 
 import './assets/tailwind.css';
-library.add(faTrash , faEdit);
+import ShoppingList from './components/shoppingList.vue';
 
 
 export default{
   name: 'App',
   components:{
-
-    FontAwesomeIcon,
-    ProductList   
+    ProductList,
+    ShoppingList   
   },
   
   
@@ -25,14 +21,7 @@ export default{
   
   <div class=" container flex justify-center px-8 py-8  ">
     <ProductList></ProductList>
-    <div>
-      <div class=" pb-8 flex">
-    <h1 class="text-3xl font-bold underline mx-auto headerPart"><b>Shopping List</b></h1>
-     
-  </div>
-
-  
-    </div>
+    <ShoppingList></ShoppingList>
     </div>
 </div>
 </template>
