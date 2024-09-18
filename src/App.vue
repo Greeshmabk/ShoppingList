@@ -17,7 +17,7 @@ export default{
 
 <template>
    <div class=" shoppingList ">
-    <h1 class="text-3xl font-bold underline mx-auto headerPart"><b>Product-Shopping List</b></h1>   
+    <h1 class="text-3xl font-bold text-center underline mx-auto headerPart"><b>Product-Shopping List</b></h1>   
   
   <div class=" container flex justify-center px-8 py-8  ">
     <ProductList></ProductList>
